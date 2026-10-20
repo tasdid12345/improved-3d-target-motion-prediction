@@ -21,6 +21,26 @@ python analysis.py
 
 Results: results are written to results.json (figures are saved to figures/).
 
+## Results (latest run)
+
+On a simulated 3D respiratory-style trajectory dataset, a standard per-axis linear autoregressive predictor reached 5.38 mm 3D RMSE at +10 frames on the held-out test set, while my per-axis LightGBM model reached 2.47 mm on the same split.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 5.376 |
+| improved_score | 2.467 |
+| improvement | 2.909 |
+| baseline_score_std | 0 |
+| improved_score_std | 0.002741 |
+| baseline_si_rmse | 4.442 |
+| improved_si_rmse | 2.311 |
+| baseline_p95_3d_error | 9.221 |
+| improved_p95_3d_error | 5.259 |
+
+Run on 2026-10-20. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: Simulated data only; the paper's MR data is not public, so absolute errors are not comparable to the paper. Baseline has no randomness, so its std is 0 across seeds. CV folds are contiguous blocks of training windows without a gap (mild optimism possible). LightGBM uses all-axis inputs whereas the baseline is per-axis, as specified. Selected params: {'num_leaves': 15, 'min_child_samples': 100}. Single simulated cohort of 12 patients: conclusions depend on the simulation design.
+
 ## Reference
 
 This project is motivated by the following paper:
